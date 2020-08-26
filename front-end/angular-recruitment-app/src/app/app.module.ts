@@ -7,7 +7,10 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './service/auth.guard';
+import { TokenInterceptorService } from './service/token-interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -21,18 +24,28 @@ import { HttpClientModule } from '@angular/common/http';
     SocialLoginModule,
     HttpClientModule
   ],
-  providers: [{
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: false,
-      providers: [
-        {
-          id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('2888314054749151'),
-        },
-      ],
-    } as SocialAuthServiceConfig,
-  }],
+  providers: [
+
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('2888314054749151'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  user: SocialUser;
   constructor(private socialAuthService: SocialAuthService, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -18,8 +18,9 @@ export class LoginComponent implements OnInit {
   signInWithFB() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(user => {
-      this.auth.login(user.authToken).subscribe(() => {
-        localStorage.setItem('authorizeToken', user.authToken);
+      this.user = user;
+      localStorage.setItem('token', this.user.authToken);
+      this.auth.login(this.user.authToken).subscribe(() => {
         this.router.navigateByUrl('/main-page');
       },
         err => console.log(err));
