@@ -4,10 +4,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
+  private url = `http://localhost:3000/`;
 
   constructor(private http: HttpClient) { }
-
   login(token) {
+    const url = this.url + 'auth/facebook'
     const httpOptions = {
       headers: new HttpHeaders(
         {
@@ -15,9 +16,12 @@ export class AuthService {
           'Authorization': `Bearer ${token}`
         })
     };
-    console.log(httpOptions);
-    const url = `http://localhost:3000/auth/facebook`;
     return this.http.get(url, httpOptions).pipe();
+  }
+
+  users() {
+    const url = this.url + 'users';
+    return this.http.get(url).pipe();
   }
 
   loggedIn() {
