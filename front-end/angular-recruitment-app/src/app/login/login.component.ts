@@ -10,9 +10,13 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   user: SocialUser;
-  constructor(private socialAuthService: SocialAuthService, private auth: AuthService, private router: Router) { }
+  error: string;
+  errorBlock = false;
+  constructor(private socialAuthService: SocialAuthService, private auth: AuthService, private router: Router) {
+  }
 
   ngOnInit(): void {
+
   }
 
   signInWithFB() {
@@ -23,7 +27,20 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.user.authToken).subscribe(() => {
         this.router.navigateByUrl('/main-page');
       },
-        err => console.log(err));
+        err => {
+          this.errorBlock = true;
+          switch (err.status) {
+            case 404:
+              this.error = "Nie znaleziono";
+              break;
+            case 500:
+              this.error = "Serwer nie odpowiada";
+              break;
+            case 401:
+              this.error = "Brak autoryzacji";
+              break;
+          }
+        });
     })
 
   }
