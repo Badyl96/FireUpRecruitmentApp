@@ -1,0 +1,6 @@
+<div class="center">
+    <button (click)="signInWithFB()" class="fb connect">Zaloguj się</button>
+</div>
+<div *ngIf="errorBlock">
+    <div class="error">{{error}}</div>
+</div>
