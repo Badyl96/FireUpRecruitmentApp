@@ -1,6 +1,6 @@
 # FireUpRecruitmentApp
 
-# This is application for login with facebook and showing logged users
+# This is application to login with facebook and showing logged users
 
  
  To install all libraries you have to write command
