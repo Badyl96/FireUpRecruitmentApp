@@ -8,12 +8,11 @@ export class UserController {
 
     constructor(private readonly authService: UserService) { }
 
-
     @UseGuards(AuthGuard('facebook-token'))
-    @Get('users')
-    async getUsers(@Req() res) {
+    @Get('')
+    async getUsers() {
         const lists = await this.authService.findAll();
-        return res.status(HttpStatus.OK).json(lists);
+        return lists;
     }
 }
 

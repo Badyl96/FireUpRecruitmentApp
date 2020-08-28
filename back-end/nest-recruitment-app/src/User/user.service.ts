@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 import { User } from 'src/schemas/user.model';
 import { AuthGuard } from '@nestjs/passport';
 
-
 @Injectable()
 export class UserService {
 

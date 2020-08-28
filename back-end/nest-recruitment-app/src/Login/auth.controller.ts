@@ -7,7 +7,7 @@ export class AuthController {
 
     @UseGuards(AuthGuard('facebook-token'))
     @Get('facebook')
-    async getTokenAfterFacebookSignIn(@Req() req) { }
+    async getTokenAfterFacebookSignIn() { }
 
 }
 

@@ -3,6 +3,7 @@ import { User } from '../schemas/user.model';
 import { NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { use } from 'passport';
 
 
 @Injectable()
@@ -14,20 +15,17 @@ export class AuthService {
 
     async createIfDoesNotExist(profile) {
         const user = await this.userModel
-            .findOne({ 'facebook.id': profile.id })
+            .findOne({ 'email': profile.emails[0].value })
             .exec();
         if (user) {
-            return;
+            return await user;
         }
         const createdUser = new this.userModel({
             email: profile.emails[0].value,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
         });
-        return createdUser.save();
+        return await createdUser.save();
     }
 
-    async findAll(): Promise<any> {
-        return await this.userModel.find().exec();
-    }
 }
