@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { User } from '../model/user';
-
+import * as config from '../config/url'
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -24,17 +24,7 @@ export class MainComponent implements OnInit {
       console.log(this.users)
     }, err => {
       this.errorBlock = true;
-      switch (err.status) {
-        case 404:
-          this.error = "Nie znaleziono";
-          break;
-        case 500:
-          this.error = "Serwer nie odpowiada";
-          break;
-        case 401:
-          this.error = "Brak autoryzacji";
-          break;
-      }
+      this.error = config.statusCode(err.status);
     });
   }
 }

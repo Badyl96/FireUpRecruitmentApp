@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocialAuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
-
+import * as config from '../config/url'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,17 +29,7 @@ export class LoginComponent implements OnInit {
       },
         err => {
           this.errorBlock = true;
-          switch (err.status) {
-            case 404:
-              this.error = "Nie znaleziono";
-              break;
-            case 500:
-              this.error = "Serwer nie odpowiada";
-              break;
-            case 401:
-              this.error = "Brak autoryzacji";
-              break;
-          }
+          this.error = config.statusCode(err.status);
         });
     })
 
