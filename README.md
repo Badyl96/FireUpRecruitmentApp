@@ -1,6 +1,6 @@
 # FireUpRecruitmentApp
 
-# This is application to login with facebook and showing logged users. To working this application you have to add facebook id, facebook client id and connection to mongodb. All id in this repository are changed.
+# This is application to login with facebook and showing logged users. To working this application you have to add facebook id, facebook client id and connection string to mongodb. All id in this repository are changed.
 
  
  To install all libraries you have to write command
