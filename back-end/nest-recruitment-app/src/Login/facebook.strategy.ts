@@ -12,8 +12,8 @@ export class FacebookStrategy {
         use(
             new FacebookTokenStrategy(
                 {
-                    clientID: '',
-                    clientSecret: '',
+                    clientID: '2888314054749151',
+                    clientSecret: '6ff76c9597cb949c8e0cc0d27524506c',
                 },
                 async (
                     accessToken: string,

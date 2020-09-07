@@ -21,7 +21,6 @@ export class MainComponent implements OnInit {
   getUser() {
     return this.userService.users().subscribe(dataUsers => {
       this.users = dataUsers
-      console.log(this.users)
     }, err => {
       this.errorBlock = true;
       this.error = config.statusCode(err.status);
